@@ -37,6 +37,13 @@ const displayCategoryNews = (news) =>
     console.log(news);
     const categoryNewsShow = document.getElementById('category-news');
     categoryNewsShow.innerHTML = ``;
+    
+    const newsLength = news.length;
+    console.log(newsLength);
+    const howMuchItems = document.getElementById('how-much-items');
+    howMuchItems.innerHTML = `
+        <h3 class="border p-4 m-4 bg-white">${newsLength} items found for this category.</h3>
+    `;
 
     if(news.length === 0)
     {
@@ -61,10 +68,10 @@ const displayCategoryNews = (news) =>
                 <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title fw-bold">${element.title}</h5>
-                    <p class="card-text text-truncate">${element.details}</p>
-                    <div>
+                    <p class="card-text text-truncate pt-3">${element.details}</p>
+                    <div class="d-flex pt-3">
 
-                        <div class="d-flex">
+                        <div class="d-flex pe-5">
                             <img src="${element.author.img}" style="width:45px; height: 45px;" class="img-fluid rounded-pill" alt="...">
                             <div class="ps-3">
                                 <p class="card-text">${element.author.name}<br/>
@@ -72,12 +79,12 @@ const displayCategoryNews = (news) =>
                             </div>
                         </div>
 
-                        <div>
+                        <div class="pe-5">
                             <h4><i class="fa-regular fa-eye"></i> ${element.total_view}</h4>
                         </div>
 
                         <div>
-                            
+                            <h5>Rating: ${element.rating.number} <span class="text-primary fw-bold">${element.rating.badge}</span></h5>
                         </div>
                     
                     </div>
@@ -85,6 +92,7 @@ const displayCategoryNews = (news) =>
                 </div>
             </div>
         `;
+        
         categoryNewsShow.appendChild(createDiv);
 
         //finish loader
