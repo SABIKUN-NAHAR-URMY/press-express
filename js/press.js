@@ -29,6 +29,7 @@ const categoryNews = (categoryId) =>
     fetch(url)
     .then(res => res.json())
     .then(data => displayCategoryNews(data.data))
+    .catch(error => console.log(error))
 }
 
 const displayCategoryNews = (news) =>
@@ -42,6 +43,7 @@ const displayCategoryNews = (news) =>
         <h3 class="border p-4 m-4 bg-white">${newsLength} items found for this category.</h3>
     `;
 
+    const arr = [];
     if(news.length === 0)
     {
         const createDiv = document.createElement('div');
@@ -53,12 +55,10 @@ const displayCategoryNews = (news) =>
         toggleSpinner(false);
     }
    else{
-    const elementView = [];
     news.forEach(element =>{ 
         const createDiv = document.createElement('div');
         createDiv.classList.add('card');
         createDiv.classList.add('mb-5');
-        elementView.push(element.total_view);
         createDiv.innerHTML = `
             <div class="row g-0 m-3">
                 <div class="col-md-4">
@@ -69,9 +69,9 @@ const displayCategoryNews = (news) =>
                     <div class="card-body">
                         <h5 class="card-title fw-bold">${element.title ? element.title: "No data found"}</h5>
                         <p class="card-text text-truncate pt-3">${element.details ? element.details: "No data found"}</p>
-                    <div class="d-flex pt-3">
+                    <div class="d-lg-flex pt-4 pt-3">
 
-                        <div class="d-flex pe-5">
+                        <div class="d-flex pe-5 pt-4">
                             <img src="${element.author.img ? element.author.img : "No data found" }" style="width:45px; height: 45px;" class="img-fluid rounded-pill" alt="...">
 
                             <div class="ps-3">
@@ -80,11 +80,11 @@ const displayCategoryNews = (news) =>
                             </div>
                         </div>
 
-                        <div class="pe-5">
-                            <h4><i class="fa-regular fa-eye"></i> ${element.total_view}</h4>
+                        <div class="pe-5 pt-4">
+                            <h4><i class="fa-regular fa-eye"></i> ${element.total_view ? element.total_view : "No data found"}</h4>
                         </div>
 
-                        <div class="pe-5">
+                        <div class="pe-5 pt-4">
                             <h5>Rating: ${element.rating.number ? element.rating.number : "No data found"} <span class="text-primary fw-bold">${element.rating.badge ? element.rating.badge : "No data found"}</span></h5>
                         </div>
 
@@ -98,14 +98,8 @@ const displayCategoryNews = (news) =>
             Show Details
           </button>
         `;
-        elementView.sort(function(a,b){
-            return a-b;
-        })
-        console.log(elementView);
-        
         categoryNewsShow.appendChild(createDiv);
         
-
         //finish loader
         toggleSpinner(false);
 
@@ -121,6 +115,7 @@ const loadDetailModalData = (new_id) =>
     fetch(url)
     .then(res => res.json())
     .then(data => displayModal(data.data))
+    .catch(error => console.log(error))
 }
 
 const displayModal = (newsDetail) =>
@@ -157,5 +152,9 @@ const toggleSpinner = isloading =>{
         loaderSection.classList.add('d-none');
     }
 }
+
+document.getElementById('sort-by-view').addEventListener('click',function(){
+
+})
 
 loadCategory();
