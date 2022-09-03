@@ -11,7 +11,6 @@ const displayCategory = (categories) =>
     const categorySection = document.getElementById('category-section');
     
     categories.forEach(category => {
-       
         const createDiv = document.createElement('div');
         createDiv.innerHTML= `
             <h5 class="p-lg-4 categoryItems" onclick= "categoryNews('${category.category_id}')">${category.category_name}</h5>
@@ -34,7 +33,6 @@ const categoryNews = (categoryId) =>
 
 const displayCategoryNews = (news) =>
 {
-    console.log(news);
     const categoryNewsShow = document.getElementById('category-news');
     categoryNewsShow.innerHTML = ``;
     
@@ -55,7 +53,7 @@ const displayCategoryNews = (news) =>
         toggleSpinner(false);
     }
    else{
-    news.forEach(element =>{
+    news.forEach(element =>{ 
         const createDiv = document.createElement('div');
         createDiv.classList.add('card');
         createDiv.classList.add('mb-5');
@@ -64,14 +62,16 @@ const displayCategoryNews = (news) =>
                 <div class="col-md-4">
                     <img src="${element.thumbnail_url}" class="img-fluid rounded-start" alt="...">
                 </div>
+
                 <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">${element.title}</h5>
-                    <p class="card-text text-truncate pt-3">${element.details}</p>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">${element.title}</h5>
+                        <p class="card-text text-truncate pt-3">${element.details}</p>
                     <div class="d-flex pt-3">
 
                         <div class="d-flex pe-5">
                             <img src="${element.author.img}" style="width:45px; height: 45px;" class="img-fluid rounded-pill" alt="...">
+
                             <div class="ps-3">
                                 <p class="card-text">${element.author.name}<br/>
                                 <small class="text-muted">${element.author.published_date}</small></p>
@@ -82,14 +82,19 @@ const displayCategoryNews = (news) =>
                             <h4><i class="fa-regular fa-eye"></i> ${element.total_view}</h4>
                         </div>
 
-                        <div>
+                        <div class="pe-5">
                             <h5>Rating: ${element.rating.number} <span class="text-primary fw-bold">${element.rating.badge}</span></h5>
                         </div>
+
+                    </div>
                     
                     </div>
-                </div>
+
                 </div>
             </div>
+            <button type="button" class="btn btn-primary mx-auto mb-4" onclick="loadDetailModalData('${element._id}')" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Show Details
+          </button>
         `;
         
         categoryNewsShow.appendChild(createDiv);
@@ -103,6 +108,29 @@ const displayCategoryNews = (news) =>
     
     
 }
+
+const loadDetailModalData = (new_id) =>
+{
+    const url = ` https://openapi.programming-hero.com/api/news/${new_id}`;
+    fetch(url)
+    .then(res => res.json())
+    .then(data => displayModal(data.data))
+}
+
+const displayModal = (newsDetail) =>
+{
+    console.log(newsDetail);
+    const modalTital = document.getElementById('exampleModalLabel');
+    const modalImage = document.getElementById('modal-img');
+    const modalDetail = document.getElementById('modal-detail');
+    newsDetail.forEach(element =>{
+        modalTital.innerText = element.title;
+        modalImage.innerHTML = `<img class="img-fluid" src = "${element.image_url}">`;
+        modalDetail.innerText = element.details;
+    })
+    
+}
+
 
 const toggleSpinner = isloading =>{
     const loaderSection = document.getElementById('loader');
