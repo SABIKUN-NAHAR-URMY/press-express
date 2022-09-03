@@ -34,9 +34,10 @@ const categoryNews = (categoryId) =>
 
 const displayCategoryNews = (news) =>
 {
+    console.log(news);
     const categoryNewsShow = document.getElementById('category-news');
     categoryNewsShow.innerHTML = ``;
-    
+
     if(news.length === 0)
     {
         const createDiv = document.createElement('div');
@@ -55,13 +56,31 @@ const displayCategoryNews = (news) =>
         createDiv.innerHTML = `
             <div class="row g-0 m-3">
                 <div class="col-md-4">
-                    <img src="${element.image_url ? element.image_url : "No News Found"}" class="img-fluid rounded-start" alt="...">
+                    <img src="${element.image_url}" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title fw-bold">${element.title}</h5>
                     <p class="card-text text-truncate">${element.details}</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <div>
+
+                        <div class="d-flex">
+                            <img src="${element.author.img}" style="width:45px; height: 45px;" class="img-fluid rounded-pill" alt="...">
+                            <div class="ps-3">
+                                <p class="card-text">${element.author.name}<br/>
+                                <small class="text-muted">${element.author.published_date}</small></p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4><i class="fa-regular fa-eye"></i> ${element.total_view}</h4>
+                        </div>
+
+                        <div>
+                            
+                        </div>
+                    
+                    </div>
                 </div>
                 </div>
             </div>
