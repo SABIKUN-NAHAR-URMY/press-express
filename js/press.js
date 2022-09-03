@@ -14,7 +14,7 @@ const displayCategory = (categories) =>
        
         const createDiv = document.createElement('div');
         createDiv.innerHTML= `
-            <h5 class="p-lg-4" onclick= "categoryNews('${category.category_id}')">${category.category_name}</h5>
+            <h5 class="p-lg-4 categoryItems" onclick= "categoryNews('${category.category_id}')">${category.category_name}</h5>
         `;
         categorySection.appendChild(createDiv);
         
@@ -34,12 +34,10 @@ const categoryNews = (categoryId) =>
 
 const displayCategoryNews = (news) =>
 {
-    console.log(news);
     const categoryNewsShow = document.getElementById('category-news');
     categoryNewsShow.innerHTML = ``;
     
     const newsLength = news.length;
-    console.log(newsLength);
     const howMuchItems = document.getElementById('how-much-items');
     howMuchItems.innerHTML = `
         <h3 class="border p-4 m-4 bg-white">${newsLength} items found for this category.</h3>
