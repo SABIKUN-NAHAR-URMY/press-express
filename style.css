@@ -3,6 +3,8 @@
 body{
     font-family: 'Roboto', sans-serif;
 }
+
 .categoryItems:hover{
-    color: blue;
+    color: blue;  
+    
 }

@@ -53,28 +53,30 @@ const displayCategoryNews = (news) =>
         toggleSpinner(false);
     }
    else{
+    const elementView = [];
     news.forEach(element =>{ 
         const createDiv = document.createElement('div');
         createDiv.classList.add('card');
         createDiv.classList.add('mb-5');
+        elementView.push(element.total_view);
         createDiv.innerHTML = `
             <div class="row g-0 m-3">
                 <div class="col-md-4">
-                    <img src="${element.thumbnail_url}" class="img-fluid rounded-start" alt="...">
+                    <img src="${element.thumbnail_url ? element.thumbnail_url : "No data found"}" class="img-fluid rounded-start" alt="...">
                 </div>
 
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title fw-bold">${element.title}</h5>
-                        <p class="card-text text-truncate pt-3">${element.details}</p>
+                        <h5 class="card-title fw-bold">${element.title ? element.title: "No data found"}</h5>
+                        <p class="card-text text-truncate pt-3">${element.details ? element.details: "No data found"}</p>
                     <div class="d-flex pt-3">
 
                         <div class="d-flex pe-5">
-                            <img src="${element.author.img}" style="width:45px; height: 45px;" class="img-fluid rounded-pill" alt="...">
+                            <img src="${element.author.img ? element.author.img : "No data found" }" style="width:45px; height: 45px;" class="img-fluid rounded-pill" alt="...">
 
                             <div class="ps-3">
-                                <p class="card-text">${element.author.name}<br/>
-                                <small class="text-muted">${element.author.published_date}</small></p>
+                                <p class="card-text">${element.author.name ? element.author.name : "No data found"}<br/>
+                                <small class="text-muted">${element.author.published_date ? element.author.published_date : "No data found"}</small></p>
                             </div>
                         </div>
 
@@ -83,7 +85,7 @@ const displayCategoryNews = (news) =>
                         </div>
 
                         <div class="pe-5">
-                            <h5>Rating: ${element.rating.number} <span class="text-primary fw-bold">${element.rating.badge}</span></h5>
+                            <h5>Rating: ${element.rating.number ? element.rating.number : "No data found"} <span class="text-primary fw-bold">${element.rating.badge ? element.rating.badge : "No data found"}</span></h5>
                         </div>
 
                     </div>
@@ -96,8 +98,13 @@ const displayCategoryNews = (news) =>
             Show Details
           </button>
         `;
+        elementView.sort(function(a,b){
+            return a-b;
+        })
+        console.log(elementView);
         
         categoryNewsShow.appendChild(createDiv);
+        
 
         //finish loader
         toggleSpinner(false);
@@ -105,7 +112,6 @@ const displayCategoryNews = (news) =>
     })
     
    }
-    
     
 }
 
@@ -121,16 +127,24 @@ const displayModal = (newsDetail) =>
 {
     console.log(newsDetail);
     const modalTital = document.getElementById('exampleModalLabel');
-    const modalImage = document.getElementById('modal-img');
     const modalDetail = document.getElementById('modal-detail');
     newsDetail.forEach(element =>{
         modalTital.innerText = element.title;
-        modalImage.innerHTML = `<img class="img-fluid" src = "${element.image_url}">`;
-        modalDetail.innerText = element.details;
+        modalDetail.innerHTML = `<img class="img-fluid" src = "${element.image_url}">
+        <p>${element.details}</p>
+        <div class="d-flex">
+        
+        <div>
+        <p><img class="img-gluid rounded-pill"  style="width:45px; height: 45px;" src = ${element.author.img}></p>
+        <p class="card-text">${element.author.name ? element.author.name : "No data found"}<br/>
+        <small class="text-muted">${element.author.published_date ? element.author.published_date : "No data found"}</small></p>
+        </div>
+        <h4><i class="fa-regular fa-eye"></i> ${element.total_view}</h4>
+        </div>`;
+
     })
     
 }
-
 
 const toggleSpinner = isloading =>{
     const loaderSection = document.getElementById('loader');
