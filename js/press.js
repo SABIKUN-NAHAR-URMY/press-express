@@ -34,6 +34,7 @@ const categoryNews = (categoryId) =>
 
 const displayCategoryNews = (news) =>
 {
+    console.log(news);
     const categoryNewsShow = document.getElementById('category-news');
     categoryNewsShow.innerHTML = ``;
     
@@ -61,7 +62,7 @@ const displayCategoryNews = (news) =>
         createDiv.innerHTML = `
             <div class="row g-0 m-3">
                 <div class="col-md-4">
-                    <img src="${element.image_url}" class="img-fluid rounded-start" alt="...">
+                    <img src="${element.thumbnail_url}" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-8">
                 <div class="card-body">
