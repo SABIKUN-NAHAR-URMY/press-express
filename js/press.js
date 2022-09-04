@@ -42,8 +42,6 @@ const displayCategoryNews = (news) =>
     howMuchItems.innerHTML = `
         <h3 class="border p-4 m-4 bg-white">${newsLength} items found for this category.</h3>
     `;
-
-    const arr = [];
     if(news.length === 0)
     {
         const createDiv = document.createElement('div');
@@ -120,7 +118,6 @@ const loadDetailModalData = (new_id) =>
 
 const displayModal = (newsDetail) =>
 {
-    console.log(newsDetail);
     const modalTital = document.getElementById('exampleModalLabel');
     const modalDetail = document.getElementById('modal-detail');
     newsDetail.forEach(element =>{
@@ -153,8 +150,5 @@ const toggleSpinner = isloading =>{
     }
 }
 
-document.getElementById('sort-by-view').addEventListener('click',function(){
-
-})
 
 loadCategory();
