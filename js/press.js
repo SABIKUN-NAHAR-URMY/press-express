@@ -34,6 +34,8 @@ const categoryNews = (categoryId) =>
 
 const displayCategoryNews = (news) =>
 {
+    const sortView = document.getElementById('sortView');
+    sortView.classList.remove('d-none');
     const categoryNewsShow = document.getElementById('category-news');
     categoryNewsShow.innerHTML = ``;
     
@@ -53,6 +55,10 @@ const displayCategoryNews = (news) =>
         toggleSpinner(false);
     }
    else{
+    news.sort(function(a,b)
+    {
+        return b.total_view - a.total_view;
+    })
     news.forEach(element =>{ 
         const createDiv = document.createElement('div');
         createDiv.classList.add('card');
