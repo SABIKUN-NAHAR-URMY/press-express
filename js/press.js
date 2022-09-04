@@ -122,16 +122,16 @@ const displayModal = (newsDetail) =>
     const modalDetail = document.getElementById('modal-detail');
     newsDetail.forEach(element =>{
         modalTital.innerText = element.title;
-        modalDetail.innerHTML = `<img class="img-fluid" src = "${element.image_url}">
-        <p>${element.details}</p>
+        modalDetail.innerHTML = `<img class="img-fluid" src = "${element.image_url ? element.image_url : "No data found"}">
+        <p>${element.details ? element.details : "No data found"}</p>
         <div class="d-flex">
         
         <div>
-        <p><img class="img-gluid rounded-pill"  style="width:45px; height: 45px;" src = ${element.author.img}></p>
+        <p><img class="img-gluid rounded-pill"  style="width:45px; height: 45px;" src = ${element.author.img ? element.author.img : "No data found"}></p>
         <p class="card-text">${element.author.name ? element.author.name : "No data found"}<br/>
         <small class="text-muted">${element.author.published_date ? element.author.published_date : "No data found"}</small></p>
         </div>
-        <h4><i class="fa-regular fa-eye"></i> ${element.total_view}</h4>
+        <h4><i class="fa-regular fa-eye"></i> ${element.total_view ? element.total_view : "No data found"}</h4>
         </div>`;
 
     })
